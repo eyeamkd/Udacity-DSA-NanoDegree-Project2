@@ -18,7 +18,7 @@ def find_files(suffix,path):
     realPath = os.path.realpath(path)
     dirlist = recursive_search(realPath,paths) 
     for path in dirlist:
-        if(".c" in path):
+        if(suffix in path):
             print(path)
 
 
