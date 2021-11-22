@@ -36,11 +36,13 @@ class BlockChain:
         self.current = block
     
     def __repr__(self) -> str: 
-        temp = self.head
-        while(temp.next is not None):
-            print(temp.data, "--->",end="") 
+        temp = self.head 
+        chain = ""
+        while(temp.next is not None): 
+            chain +="{} -->".format(temp.data)
             temp = temp.next  
-            
+        chain+="{}".format(temp.data) 
+        return chain
 blockchain = BlockChain(8)
 blockchain.add(7)
 blockchain.add(9) 
