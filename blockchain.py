@@ -1,5 +1,5 @@
 import hashlib  
-import datetime
+import time
 
 class Block: 
     
@@ -7,10 +7,11 @@ class Block:
       self.timestamp = timestamp
       self.data = data
       self.previous_hash = previous_hash
-      self.hash = self.calc_hash() 
+      self.hash = self.calc_hash(data) 
       self.next = None
 
-    def calc_hash(self, input:str):
+    def calc_hash(self, input:str): 
+        input = str(input)
         sha = hashlib.sha256()
         sha.update(input.encode("utf-8")) 
         return sha.hexdigest() 
@@ -18,22 +19,34 @@ class Block:
 class BlockChain:
     
     head: Block 
-    current: Block
+    current: Block 
+    prev:Block
     
-    def __init__(self,value) -> None: 
-        headBlock = self.add(value) 
-        head = headBlock
+    def __init__(self,value) -> None:  
+        headBlock = Block(time.time(),value,None)
+        self.head = headBlock
+        self.current = self.head
+        self.head.next = self.current
+        
     
     def add(self, data): 
-        timestamp = datetime.timestamp()
-        block = Block(timestamp,data, self.current.hash) 
-        self.current = block 
+        timestamp = time.time() 
+        block = Block(timestamp,data, self.current.hash)  
+        self.current.next = block 
+        self.current = block
     
     def __repr__(self) -> str: 
         temp = self.head
         while(temp.next is not None):
             print(temp.data, "--->",end="") 
-            temp = temp.next 
+            temp = temp.next  
+            
+blockchain = BlockChain(8)
+blockchain.add(7)
+blockchain.add(9) 
+
+print(blockchain)
+
         
             
         
