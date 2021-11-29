@@ -1,5 +1,25 @@
 import sys 
 
+class Huffman_Node:
+    def __init__(self, character:str="", frequency:int=0) -> None: 
+        self.leftNode = Huffman_Node("",0)
+        self.rightNode = Huffman_Node("",0) 
+        self.character = character 
+        self.frequency = frequency 
+        pass  
+    
+    def getCharacter(self):
+        return self.character 
+    
+    def getFrequency(self):
+        return self.frequency 
+    
+    def getLeftNode(self):
+        return self.leftNode
+    
+    def getRightNode(self):
+        return self.rightNode
+        
 
 def determine_frequency(string:str): 
     dictionary = {} 
@@ -10,7 +30,8 @@ def determine_frequency(string:str):
             dictionary[letter]+=1 
         else:
             dictionary[letter]=1 
-    return dictionary
+    return dictionary 
+
 
 def huffman_encoding(): 
 
