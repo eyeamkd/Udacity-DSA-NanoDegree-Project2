@@ -32,10 +32,19 @@ def determine_frequency(string:str):
             dictionary[letter]=1 
     return dictionary 
 
-
-def huffman_encoding(): 
-
-    pass 
+def create_priority_queue(frequency_dictionary:dict): 
+        frequency_dictionary = dict(sorted(frequency_dictionary.items(), key=lambda item: item[1]))
+        queue = []
+        for letter in frequency_dictionary.keys(): 
+            node = Huffman_Node(letter,frequency_dictionary[letter]) 
+            queue.append(node) 
+        return queue
+     
+def huffman_encoding(string :str): 
+    frequency_dictionary = determine_frequency(string)   
+    priority_queue = create_priority_queue(frequency_dictionary) 
+    
+   
 
 def huffman_decoding():
     pass  
@@ -44,7 +53,7 @@ if __name__ == "__main__":
     codes = {}
 
     a_great_sentence = "The bird is the word" 
-    result = determine_frequency(a_great_sentence) 
+    
     print(result)  
     
     # print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
