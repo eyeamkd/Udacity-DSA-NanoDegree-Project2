@@ -18,8 +18,44 @@ class Huffman_Node:
         return self.leftNode
     
     def getRightNode(self):
-        return self.rightNode
+        return self.rightNode 
+
+class Heap_node: 
+    
+    def __init__(self,value) -> None: 
+        self.value = value
+        self.leftNode = None 
+        self.rightNode = None  
+    
+    def insertLeft(self,node):
+        self.leftNode = node
+    
+    def insertRight(self,node):
+        self.rightNode = node 
+    
+    def getLeft(self):
+        return self.leftNode 
+    
+    def getRight(self):
+        return self.rightNode 
+
+class priority_queue:
+    
+    def __init__(self,value, order="ASC") -> None: 
+        self.root = Heap_node(value)
+        self.size = 0 
+        self.order = order
+    
+    def size(self):
+        return self.size 
+    
+    def insert(self,value):   
+        #CHALLENGE: IMAGINE A COMPLETE BINARY HEAP, 
+        # AND THEN SUDDENLY YOU GOT TO INTRODUCE A NODE 
+        # WHICH WOULD MEAN TRAVERSING THE TREE AND REPLACING THE ROOT
+        pass
         
+
 
 def determine_frequency(string:str): 
     dictionary = {} 
