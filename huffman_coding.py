@@ -9,7 +9,15 @@ class Huffman_Node:
         pass  
     
     def getCharacter(self):
-        return self.character 
+        return self.character  
+    
+    def insertLeft(self, node):
+        self.leftNode = node 
+        return 
+    
+    def insertRight(self, node):
+        self.rightNode = node
+        return 
     
     def getFrequency(self):
         return self.frequency 
@@ -18,7 +26,18 @@ class Huffman_Node:
         return self.leftNode
     
     def getRightNode(self):
-        return self.rightNode 
+        return self.rightNode   
+    
+    def merge(self, otherNode:Huffman_Node): 
+        new_node = Huffman_Node("",self.frequency + otherNode.frequency)  
+        if(self.frequency<=otherNode.frequency):
+            new_node.insertLeft(self) 
+            new_node.insertRight(otherNode) 
+        else: 
+            new_node.insertLeft(otherNode)
+            new_node.insertRight(self) 
+        return new_node
+            
 
 class Heap_node: 
     
