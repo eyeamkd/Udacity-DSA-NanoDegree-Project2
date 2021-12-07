@@ -1,15 +1,14 @@
 import sys 
+from queue import PriorityQueue 
+from typing import Any
 
-class Huffman_Node:
-    def __init__(self, character:str="", frequency:int=0) -> None: 
-        self.leftNode = Huffman_Node("",0)
-        self.rightNode = Huffman_Node("",0) 
-        self.character = character 
-        self.frequency = frequency 
+class Huffman_Node: 
+    def __init__(self, data) -> None: 
+        self.data = data 
         pass  
     
     def getCharacter(self):
-        return self.character  
+        return self.data  
     
     def insertLeft(self, node):
         self.leftNode = node 
@@ -28,7 +27,7 @@ class Huffman_Node:
     def getRightNode(self):
         return self.rightNode   
     
-    def merge(self, otherNode:Huffman_Node): 
+    def merge(self, otherNode): 
         new_node = Huffman_Node("",self.frequency + otherNode.frequency)  
         if(self.frequency<=otherNode.frequency):
             new_node.insertLeft(self) 
@@ -37,8 +36,14 @@ class Huffman_Node:
             new_node.insertLeft(otherNode)
             new_node.insertRight(self) 
         return new_node
-            
 
+class PrioritizedItem:
+    priority: int
+    item : Any
+    def __init__(self, priority, item) -> None:
+        self.priority = priority 
+        self.item = item 
+        
 class Heap_node: 
     
     def __init__(self,value) -> None: 
@@ -89,15 +94,45 @@ def determine_frequency(string:str):
 
 def create_priority_queue(frequency_dictionary:dict): 
         frequency_dictionary = dict(sorted(frequency_dictionary.items(), key=lambda item: item[1]))
-        queue = []
-        for letter in frequency_dictionary.keys(): 
-            node = Huffman_Node(letter,frequency_dictionary[letter]) 
-            queue.append(node) 
+        queue = PriorityQueue()
+        for letter in frequency_dictionary.keys():  
+            queue.put(PrioritizedItem(frequency_dictionary[letter],letter))
+        print("Lowest prirority", queue.get())
         return queue
      
 def huffman_encoding(string :str): 
     frequency_dictionary = determine_frequency(string)   
     priority_queue = create_priority_queue(frequency_dictionary) 
+    root_node = build_huffman_tree(priority_queue) 
+    print("The root node is here", root_node)
+    # print("Lowest priority is", priority_queue.get()[1])
+    # print(priority_queue) 
+
+def lowest_frequency_nodes(queue): 
+    return queue.get(), queue.get()
+    pass 
+
+def merge(node1, node2):
+    total_frequency = node1[0] + node2[0] 
+    merged_node = Huffman_Node(total_frequency) 
+    merged_node.leftNode = Huffman_Node(node1[0]) 
+    merged_node.rightNode = Huffman_Node(node2[0]) 
+    return merged_node 
+    
+    
+def build_huffman_tree(queue:PriorityQueue): 
+    while(queue.qsize()!=1):
+        node1, node2 = lowest_frequency_nodes(queue) 
+        merged_node = merge(node1, node2)  
+        print("Combined frequency of the merged nodes is", merged_node.data)
+        queue.put(PrioritizedItem(merged_node.data,merged_node)) 
+    
+    return queue
+         
+        
+    pass    
+
+
     
    
 
@@ -109,7 +144,8 @@ if __name__ == "__main__":
 
     a_great_sentence = "The bird is the word" 
     
-    print(result)  
+    queue = huffman_encoding(a_great_sentence)
+    
     
     # print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     # print ("The content of the data is: {}\n".format(a_great_sentence))
