@@ -3,11 +3,14 @@ from queue import PriorityQueue
 from dataclasses import dataclass, field
 from typing import Any
 
-class Huffman_Node: 
-    def __init__(self, data) -> None: 
-        self.data = data  
-        self.leftNode = None
-        self.rightNode = None
+class Huffman_Node:  
+    node_type:str 
+    frequency:int
+    
+    def __init__(self, frequency, type, data=None) -> None: 
+        self.frequency = frequency
+        self.node_type = type 
+        self.data = data
         pass  
     
     def getData(self):
@@ -62,7 +65,8 @@ def create_priority_queue(frequency_dictionary:dict):
         frequency_dictionary = dict(sorted(frequency_dictionary.items(), key=lambda item: item[1]))
         queue = PriorityQueue()
         for letter in frequency_dictionary.keys():  
-            queue.put(PrioritizedItem(frequency_dictionary[letter],letter))
+            node = Huffman_Node(frequency_dictionary[letter],'leaf',letter)
+            queue.put(PrioritizedItem(frequency_dictionary[letter],node))
         print("Lowest prirority", queue.get())
         return queue
      
@@ -70,7 +74,7 @@ def huffman_encoding(string :str):
     frequency_dictionary = determine_frequency(string)   
     priority_queue = create_priority_queue(frequency_dictionary) 
     root_node = build_huffman_tree(priority_queue)  
-    generate_encoded_data(root_node)
+    generate_encoded_data(root_node,'')
     print("The root node is here", root_node)
 
 def lowest_frequency_nodes(queue): 
@@ -79,7 +83,7 @@ def lowest_frequency_nodes(queue):
 
 def merge(node1:PrioritizedItem, node2:PrioritizedItem): 
     total_frequency = node1.priority + node2.priority
-    merged_node = Huffman_Node(total_frequency) 
+    merged_node = Huffman_Node(total_frequency,'parent') 
     merged_node.leftNode = node1.item    
     merged_node.rightNode = node2.item
     return merged_node 
@@ -89,31 +93,18 @@ def build_huffman_tree(queue:PriorityQueue):
     while(queue.qsize()>1):
         node1, node2 = lowest_frequency_nodes(queue) 
         merged_node = merge(node1, node2)  
-        print("Combined frequency of the merged nodes is", merged_node.data)
-        queue.put(PrioritizedItem(merged_node.data,merged_node)) 
+        print("Combined frequency of the merged nodes is", merged_node.frequency)
+        queue.put(PrioritizedItem(merged_node.frequency,merged_node)) 
     
     return queue.get().item
     
-def generate_encoded_data(root_node):  
-    # doing BFS  
-    print("Generating the encoded data...")
-    queue = []
-    queue.append(root_node)
-    while(len(queue)>=1): 
-        node:Huffman_Node = queue.pop() 
-        if(type(node.leftNode) !=str): 
-            print("The left node is", node.leftNode)
-            queue.append(node.leftNode) 
-        else:
-            print("Data on the left is", node.leftNode) 
-        if(type(node.rightNode)!=str):
-            queue.append(node.rightNode) 
-        else:
-            print("Data on the right is", node.rightNode) 
-            
-       
-    
-    pass
+def generate_encoded_data(root_node:Huffman_Node, code):  
+    # doing BFS   
+    if(root_node.node_type =='parent'):
+        generate_encoded_data(root_node.leftNode,code=code+'0')
+        generate_encoded_data(root_node.rightNode, code=code+'1')
+    print('code is', code, "Frequency is", root_node.frequency)
+
 def huffman_decoding():
     pass  
 
