@@ -28,4 +28,24 @@ and the encoded string is then returned.
 
 *huffman_decoding()* function takes in the encoded string and the root node. 
 The root node of the created huffman tree is then traversed according to the bit value present in the encoded string, and as the traversal reaches a node of type "leaf" we append the data present init to a string. 
-Atlast this string is returned, which then has decoded value. 
+Atlast this string is returned, which then has decoded value.  
+
+
+Time Complexity:
+
+For the huffman_encoding() function: 
+determine_frequency() function loops through the letters in the string, hence has a time complexity of O(n), where 'n' is the length of the string  
+
+create_priority_queue() loops through the number of keys in the dictionary which is "k", hence the time complexity is O(k), where inserting element into the queue and creating a node can be considered as O(1) operations 
+
+build_huffman_tree() loops through the number of items present in the queue which is 'k',hence the time compelxity is O(k). Considering the merging and creation of Huffman nodes to be O(1). 
+
+generate_encoded_data() is a recursive function and the time complexity here depends on the number of nodes that are present, since it is 'k', the time complexity here is also O(k)
+
+Therefore the total time complexity for huffman_encoding() is O(n) + O(k) + O(k) + O(k), which is O(n) + 3O(k) 
+since, constants can be ignored, we have O(n) + O(k) 
+
+For huffman_decoding(): traversal for the number of bits, lets consider that to be 'b', then it's time complexity is O(b) 
+
+Total Time Complexity for the execution of the program is: O(n) + O(k) + O(b) 
+Where n,k,b are *dependent* on length of the string, number of items in the queue and the number of bits generated. 
