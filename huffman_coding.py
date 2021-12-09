@@ -62,7 +62,9 @@ def create_priority_queue(frequency_dictionary:dict):
         # print("Lowest prirority", queue.get())
         return queue
      
-def huffman_encoding(string :str): 
+def huffman_encoding(string :str):  
+    if(len(string)==0): 
+        raise ValueError("Improper Input")
     frequency_dictionary = determine_frequency(string)   
     #print("Frequency Dictionary is",frequency_dictionary) 
     priority_queue = create_priority_queue(frequency_dictionary) 
@@ -138,9 +140,23 @@ def huffman_decoding(encoded_string,root_node:Huffman_Node):
 if __name__ == "__main__":
     codes = {}
 
-    a_great_sentence = "AAAAAAABBBCCCCCCCDDEEEEEE" 
+    a_great_sentence = "AAAAAAABBBCCCCCCCDDEEEEEE"   
     
     encoded_string,root_node = huffman_encoding(a_great_sentence)  
     decoded_string = huffman_decoding(encoded_string,root_node)
     print(encoded_string) 
-    print(decoded_string)
+    print(decoded_string) 
+
+
+    # test_case_2 = "" 
+    # encoded_string,root_node = huffman_encoding(test_case_2)  
+    # decoded_string = huffman_decoding(encoded_string,root_node)
+    # print(encoded_string) 
+    # print(decoded_string)  
+
+    test_case_3 = "AAAA" 
+    encoded_string,root_node = huffman_encoding(test_case_3)  
+    decoded_string = huffman_decoding(encoded_string,root_node)
+    print("encoded string is",encoded_string) 
+    print(decoded_string) 
+
