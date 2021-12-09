@@ -42,7 +42,8 @@ class BlockChain:
             chain +="{} -->".format(temp.data)
             temp = temp.next  
         chain+="{}".format(temp.data) 
-        return chain
+        return chain 
+#test 
 blockchain = BlockChain(8)
 blockchain.add(7)
 blockchain.add(9) 

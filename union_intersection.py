@@ -24,7 +24,9 @@ def is_user_in_group(user,group):
     if(_group_dict[user]):
         if(_group_dict[user]==group.name):
             return True
-        return False
+        return False 
+
+#test case
 
 parent = Group("parent")
 child = Group("child")

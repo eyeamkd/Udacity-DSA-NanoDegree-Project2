@@ -38,7 +38,9 @@ class LRU_Cache(object):
                 minHit = self.cache[element]["hits"]
                 key = element
         self.cache.pop(key) 
-        
+
+
+#test case
 our_cache = LRU_Cache(5)
 
 our_cache.set(1, 1);

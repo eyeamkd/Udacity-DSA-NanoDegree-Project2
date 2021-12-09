@@ -121,13 +121,13 @@ def generate_encoded_data(root_node:Huffman_Node, code,dict):
 
 def huffman_decoding(encoded_string,root_node:Huffman_Node):
     decoded_string = ''  
-    print("Root node is",root_node)
+    #print("Root node is",root_node)
     temp_root:Huffman_Node = root_node
     for bit in encoded_string:
         if(bit=='0'): 
             temp_root = temp_root.leftNode  
             if(temp_root.node_type == 'leaf'):
-                print("temp root is", temp_root.node_type)
+                #print("temp root is", temp_root.node_type)
                 decoded_string = decoded_string + temp_root.data
                 temp_root = root_node 
         elif(bit =='1'):
@@ -141,8 +141,7 @@ def huffman_decoding(encoded_string,root_node:Huffman_Node):
 
 
 
-
-    pass  
+# test case
 
 if __name__ == "__main__":
     codes = {}
