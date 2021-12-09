@@ -33,15 +33,7 @@ class Huffman_Node:
     def getRightNode(self):
         return self.rightNode   
     
-    def merge(self, otherNode): 
-        new_node = Huffman_Node("",self.frequency + otherNode.frequency)  
-        if(self.frequency<=otherNode.frequency):
-            new_node.insertLeft(self) 
-            new_node.insertRight(otherNode) 
-        else: 
-            new_node.insertLeft(otherNode)
-            new_node.insertRight(self) 
-        return new_node
+   
 
 
 @dataclass(order=True)
@@ -72,7 +64,7 @@ def create_priority_queue(frequency_dictionary:dict):
      
 def huffman_encoding(string :str): 
     frequency_dictionary = determine_frequency(string)   
-    print("Frequency Dictionary is",frequency_dictionary) 
+    #print("Frequency Dictionary is",frequency_dictionary) 
     priority_queue = create_priority_queue(frequency_dictionary) 
     root_node = build_huffman_tree(priority_queue) 
     generate_encoded_data(root_node,'',frequency_dictionary) 
