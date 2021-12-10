@@ -1,20 +1,29 @@
-# Explanation for Union Intersection problem 
+# Explanation for the active directory problem
 
-Created a Group class, inroder to make the code reusable 
+The solution mainly revolves around the essence of the beautiful data structure called "set" in python
 
-added the functions: 
+set is such a data structure which doesn't hold multiple elements of the same type, and this actually comes in handy while doing "union" and "intersection" computations
 
-*add_group* which is used to add a group inside another group 
+adding elements to the set, irrespective of the elements are repeated, would give a union of the elements. 
 
-*add_user* which is used to add a user inside a group
+for intersection, I would just add all the elements in a set called as "common" and then check for repeated elements by traversing the other set. 
+If the element turned out to be repeated, then I'd add that element into a linkedlist, I'm avoiding the repeatition here by removing the element from the common set once if it's added to the list
 
-*get_groups* which is used to return all the groups inside a group
+## Time Complexity:
 
-*get_users* which is used to return all the users inside a group 
+intersection():
+The function goes through a while loop until it traverses the list1, lets say that the number of elements present in the list1 are L, then the time complexity is O(L)
 
-*is_user_in_group* which is used to check if a user exists in a group 
+It has another while loop, which also does the same traversal but on the second list, lets say that the number of elements present in the second list are M, then the time complexity is O(M)
 
-Used to concept of normalization and Flattening objects to have a central dictionary that stores every users's information that way I don't have to go deep searching or also do recursive 
+Since, we're dealing with LinkedList, the addition and removal functions have O(1) time complexity 
 
+Therefore, the total time complexity for this function is 
+O(L) + O(M)
 
-
+union():
+The union function has while loop that executes for all the elements present in the LinkedLists 1 and 2. 
+Therefore this would account for the time complexity of 
+O(G), where G is max of L1 and L2 
+Second for loop executes for the number of elements present in the union set, which lets say is K, hence the time complexity is O(K)
+Therefore the total time complexity of this union function is O(G) + O(K)

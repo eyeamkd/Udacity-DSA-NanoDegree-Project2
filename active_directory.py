@@ -1,112 +1,57 @@
-class Node: 
+_group_dict = {} 
+
+class Group(object): 
+        
+    def __init__(self, _name): 
+        if(len(_name)==0):
+            raise ValueError("Group name cannot be empty")
+        self.name = _name
+        self.groups = [] 
+        self.users = []
     
-    def __init__(self, value):
-        self.value = value
-        self.next = None
-
-    def __repr__(self):
-        return str(self.value)
-
-
-class LinkedList: 
+    def add_group(self,group):
+        self.groups.append(group)  
+        
+    def add_user(self,user): 
+        if(len(user)==0):
+            raise ValueError("User name cannot be empty")
+        self.users.append(user) 
+        _group_dict[user] = self.name
     
-    def __init__(self):
-        self.head = None
+    def get_groups(self):
+        return self.groups 
 
-    #overrides the print call
-    def __str__(self):
-        cur_head = self.head
-        out_string = ""
-        while cur_head:
-            out_string += str(cur_head.value) + " -> "
-            cur_head = cur_head.next
-        return out_string
-
-
-    def append(self, value):
-
-        if self.head is None:
-            self.head = Node(value)
-            return
-
-        node = self.head
-        while node.next:
-            node = node.next
-
-        node.next = Node(value)
-
-    def size(self):
-        size = 0
-        node = self.head
-        while node:
-            size += 1
-            node = node.next
-
-        return size
-
-def union(llist_1:LinkedList, llist_2:LinkedList)->LinkedList:
-    union = set()
-    unionList = LinkedList() 
-    while(llist_1.head is not None or llist_2.head is not None):
-        if(llist_1.head is not None):
-            union.add(llist_1.head.value) 
-            llist_1.head = llist_1.head.next
-        if(llist_2.head is not None):
-            union.add(llist_2.head.value)  
-            llist_2.head = llist_2.head.next 
-    for node in union:
-        unionList.append(node)
-    return unionList 
+    def get_users(self):
+        return self.users 
     
+def is_user_in_group(user,group):  
+    if(_group_dict[user]):
+        if(_group_dict[user]==group.name):
+            return True
+        return False,"User not found" 
 
-def intersection(llist_1, llist_2):
-    common = set()    
-    commonList: LinkedList = LinkedList();
-    while(llist_1.head!=None):
-        common.add(llist_1.head.value)
-        llist_1.head = llist_1.head.next 
-    while(llist_2.head!=None):
-        if(llist_2.head.value in common): 
-            common.remove(llist_2.head.value)
-            commonList.append(llist_2.head.value)
-        llist_2.head = llist_2.head.next 
-    return commonList
-    
+#test cases
+
+parent = Group("parent")
+child = Group("child")
+sub_child = Group("subchild") 
+empty_group = Group("") #raises error
 
 
-# Test case 1
+sub_child_user = "sub_child_user"
+sub_child.add_user(sub_child_user) 
+parent.add_user("parent_user") 
+parent.add_user("") #raises error
 
-linked_list_1 = LinkedList()
-linked_list_2 = LinkedList()
+child.add_group(sub_child)
+parent.add_group(child)  
 
-element_1 = [3,2,4,35,6,65,6,4,3,21]
-element_2 = [6,32,4,9,6,1,11,21,1]
+print(is_user_in_group("parent_user",sub_child))
 
-for i in element_1:
-    linked_list_1.append(i)
 
-for i in element_2:
-    linked_list_2.append(i)
-
-# print (union(linked_list_1,linked_list_2))
-print (intersection(linked_list_1,linked_list_2))
-
-# Test case 2
-
-linked_list_3 = LinkedList()
-linked_list_4 = LinkedList()
-
-element_1 = [3,2,4,35,6,65,6,4,3,23]
-element_2 = [1,7,8,9,11,21,1]
-
-for i in element_1:
-    linked_list_3.append(i)
-
-for i in element_2:
-    linked_list_4.append(i) 
-
-# print(linked_list_3) 
-# print(linked_list_4)
-# print("Intersection value")
-# # print (union(linked_list_3,linked_list_4))
-# print (intersection(linked_list_3,linked_list_4))
+ 
+        
+        
+        
+        
+        
