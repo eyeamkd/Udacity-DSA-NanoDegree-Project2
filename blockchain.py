@@ -29,7 +29,12 @@ class BlockChain:
         self.head.next = self.current
         
     
-    def add(self, data): 
+    def add(self, data):   
+        if(data is None):
+            raise ValueError("Block data cannot be None")
+        if(type(data) is str or list or tuple):
+            if(len(data)==0):
+                raise ValueError("Empty data cannot be added in a block")
         timestamp = time.time() 
         block = Block(timestamp,data, self.current.hash)  
         self.current.next = block 
@@ -46,9 +51,14 @@ class BlockChain:
 #test 
 blockchain = BlockChain(8)
 blockchain.add(7)
-blockchain.add(9) 
+blockchain.add(9)  
+print(blockchain) 
 
-print(blockchain)
+blockchain.add([]) #raises error
+blockchain.add('') #raises error
+blockchain.add(()) #raises error
+blockchain.add(None) #raises error
+
 
         
             
