@@ -48,4 +48,4 @@ since, constants can be ignored, we have O(n) + O(k)
 For huffman_decoding(): traversal for the number of bits, lets consider that to be 'b', then it's time complexity is O(b) 
 
 Total Time Complexity for the execution of the program is: O(n) + O(k) + O(b) 
-Where n,k,b are *dependent* on length of the string, number of items in the queue and the number of bits generated. 
+Where n,k,b are *dependent* on length of the string, number of items in the queue and the number of bits generated.
