@@ -14,4 +14,9 @@ At a given timeframe, we can traverse through the blockChain using the head bloc
 
 I've also created a method to add more blocks using the "add" method 
 
+## Time Complexity 
 
+add() function takes O(1) to calculate time, create a Block object and then adding the created block to the chain 
+Hence, add() function's time complexity is O(1) 
+
+print() however goes through all the blocks present in the blockchain, hence in order to print all the blocks, it shall cost us a complexity of O(B), where B is the number of blocks present "on-chain"
