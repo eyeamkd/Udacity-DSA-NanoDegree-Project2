@@ -8,7 +8,9 @@
 class LRU_Cache(object): 
     
     capacity = 0 
-    cache = {}
+    cache = {}  
+    min_hit_element = None
+    # minimum hit element can be stored so as to easily remove it
     # key:{value:,hits:}
     
     def __init__(self, capacity) -> None: 
@@ -26,11 +28,17 @@ class LRU_Cache(object):
     def set(self,key,value):  
         #if capacity is 5, run remove function
         if(len(self.cache)==self.capacity):
-            self.__removeElement()
+            self.__remove_element()
         self.cache[key] = {"value":value,"hits":0}; 
-         
     
-    def __removeElement(self):  
+    # def get_min_hit_element():
+    #     for element in self.cache:
+    #         if(self.cache[element]["hits"]<minHit): 
+    #             minHit = self.cache[element]["hits"]
+    #             key = element
+                
+    
+    def __remove_element(self):  
         minHit = 9999;
         key = '';
         for element in self.cache:
