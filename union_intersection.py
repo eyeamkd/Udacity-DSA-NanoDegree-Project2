@@ -44,9 +44,11 @@ class LinkedList:
 
         return size
 
-def union(llist_1:LinkedList, llist_2:LinkedList)->LinkedList:
+def union(llist_1:LinkedList, llist_2:LinkedList)->LinkedList: 
+    if(len(llist_1)==0 and len(llist_2)==0):
+        raise ValueError("Empty lists cannot be unionized")
     union = set()
-    unionList = LinkedList() 
+    unionList = LinkedList()  
     while(llist_1.head is not None or llist_2.head is not None):
         if(llist_1.head is not None):
             union.add(llist_1.head.value) 
@@ -59,7 +61,9 @@ def union(llist_1:LinkedList, llist_2:LinkedList)->LinkedList:
     return unionList 
     
 
-def intersection(llist_1, llist_2):
+def intersection(llist_1, llist_2): 
+    if(len(llist_1)==0 and len(llist_2)==0):
+        raise ValueError("Empty lists cannot be intersected")
     common = set()    
     common_list: LinkedList = LinkedList();
     while(llist_1.head!=None):
@@ -107,8 +111,16 @@ for i in element_1:
 for i in element_2:
     linked_list_4.append(i) 
 
-# print(linked_list_3) 
-# print(linked_list_4)
-# print("Intersection value")
-# # print (union(linked_list_3,linked_list_4))
-# print (intersection(linked_list_3,linked_list_4))
+print(linked_list_3) 
+print(linked_list_4)
+print("Intersection value")
+print (union(linked_list_3,linked_list_4))
+print (intersection(linked_list_3,linked_list_4)) 
+
+
+element_3 = []
+element_4 = []
+print (union(linked_list_3,linked_list_4)) #raises error
+print (intersection(linked_list_3,linked_list_4)) #raises error
+
+
