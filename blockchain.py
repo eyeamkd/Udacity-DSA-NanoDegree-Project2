@@ -1,10 +1,9 @@
 import hashlib  
 import time
 
-class Block: 
-    
+class Block:   
     def __init__(self, timestamp, data, previous_hash):
-      self.timestamp = timestamp
+      self.timestamp = timestamp 
       self.data = data
       self.previous_hash = previous_hash
       self.hash = self.calc_hash(data) 
@@ -22,11 +21,14 @@ class BlockChain:
     current: Block 
     prev:Block
     
-    def __init__(self,value) -> None:  
-        headBlock = Block(time.time(),value,None)
-        self.head = headBlock
-        self.current = self.head
-        self.head.next = self.current
+    def __init__(self,value) -> None: 
+        if(value):
+            headBlock = Block(time.time(),value,None)
+            self.head = headBlock
+            self.current = self.head
+            self.head.next = self.current 
+        else:
+            raise ValueError("The value of the block cannot be null")
         
     
     def add(self, data):   
@@ -49,7 +51,7 @@ class BlockChain:
         chain+="{}".format(temp.data) 
         return chain 
 #test 
-blockchain = BlockChain(8)
+blockchain = BlockChain([]) 
 blockchain.add(7)
 blockchain.add(9)  
 print(blockchain) 
