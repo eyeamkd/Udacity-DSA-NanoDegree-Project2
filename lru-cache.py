@@ -69,7 +69,7 @@ our_cache.set(5, 5)
 our_cache.set(6, 6)  
 print(our_cache.get(3)) 
 
-#our_cache = LRU_Cache(0) # Throws Value Error 
+our_cache = LRU_Cache(0) # Throws Value Error 
 
 our_cache = LRU_Cache(-1) # Can add infinite numbers ( Obv RAM limit :P)
 
