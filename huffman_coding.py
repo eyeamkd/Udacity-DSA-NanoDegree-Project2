@@ -59,7 +59,7 @@ def create_priority_queue(frequency_dictionary:dict):
         for letter in frequency_dictionary.keys():  
             node = Huffman_Node(frequency_dictionary[letter],'leaf',letter)
             queue.put(PrioritizedItem(frequency_dictionary[letter],node))
-        #print("Lowest prirority", queue.get())
+        # print("Lowest prirority", queue.get())
         return queue
      
 def huffman_encoding(string :str):  
@@ -85,11 +85,6 @@ def lowest_frequency_nodes(queue):
     pass 
 
 def merge(node1:PrioritizedItem, node2:PrioritizedItem): 
-    #print("Node 1 and 2 are", node1, node2)  
-    if(node1.priority is None):
-        node1.priority = 0
-    if(node2.priority is None):
-        node2.priority = 0
     total_frequency = node1.priority + node2.priority
     merged_node = Huffman_Node(total_frequency,'parent') 
     merged_node.leftNode = node1.item    
@@ -97,31 +92,23 @@ def merge(node1:PrioritizedItem, node2:PrioritizedItem):
     return merged_node 
     
     
-def build_huffman_tree(queue:PriorityQueue):   
-    #print("The given Queue size is", queue.qsize())
-    if(queue.qsize()==1):
-        node = queue.get()
-        huffman_node = Huffman_Node(node.priority,"parent") 
-        huffman_node.leftNode = node.item 
-        huffman_node.rightNode = None
-        return huffman_node
-        #merged_node = merge(node1,None)
+def build_huffman_tree(queue:PriorityQueue): 
     while(queue.qsize()>1):
         node1, node2 = lowest_frequency_nodes(queue) 
         merged_node = merge(node1, node2)  
         #print("Combined frequency of the merged nodes is", node1.item.data, node2.item.data)
-        queue.put(PrioritizedItem(merged_node.frequency,merged_node))  
+        queue.put(PrioritizedItem(merged_node.frequency,merged_node)) 
     
     return queue.get().item
     
 def generate_encoded_data(root_node:Huffman_Node, code,dict):  
     # doing BFS   
-    if(root_node is not None and root_node.node_type =='parent' ): 
+    if(root_node.node_type =='parent'): 
         left_code = code+'0'
         right_code = code+'1'
         generate_encoded_data(root_node.leftNode,left_code,dict)
         generate_encoded_data(root_node.rightNode,right_code,dict) 
-    elif(root_node is not None and root_node.node_type == 'leaf'):
+    elif(root_node.node_type == 'leaf'):
         frequency = dict[root_node.data]   
         dict[root_node.data] = {'code':code, 'frequency':frequency}
         return code,root_node.data
@@ -161,11 +148,11 @@ if __name__ == "__main__":
     print(decoded_string) 
 
 
-    test_case_2 = "" 
-    encoded_string,root_node = huffman_encoding(test_case_2)  
-    decoded_string = huffman_decoding(encoded_string,root_node)
-    print(encoded_string) 
-    print(decoded_string)  
+    # test_case_2 = "" 
+    # encoded_string,root_node = huffman_encoding(test_case_2)  
+    # decoded_string = huffman_decoding(encoded_string,root_node)
+    # print(encoded_string) 
+    # print(decoded_string)  
 
     test_case_3 = "AAAA" 
     encoded_string,root_node = huffman_encoding(test_case_3)  

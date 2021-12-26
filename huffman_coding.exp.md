@@ -36,16 +36,21 @@ Time Complexity:
 For the huffman_encoding() function: 
 determine_frequency() function loops through the letters in the string, hence has a time complexity of O(n), where 'n' is the length of the string  
 
-create_priority_queue() loops through the number of keys in the dictionary which is "k", hence the time complexity is O(k), where inserting element into the queue and creating a node can be considered as O(1) operations 
+create_priority_queue() loops through the number of keys in the dictionary which is "k", hence the time complexity is O(k), where inserting element into the queue and creating a node can be considered as O(1) operations  
+The queue.PriorityQueue uses the same heapq implementation from internally and thus has the same time complexity which is  O(log k) . 
 
 build_huffman_tree() loops through the number of items present in the queue which is 'k',hence the time compelxity is O(k). Considering the merging and creation of Huffman nodes to be O(1). 
 
 generate_encoded_data() is a recursive function and the time complexity here depends on the number of nodes that are present, since it is 'k', the time complexity here is also O(k)
 
-Therefore the total time complexity for huffman_encoding() is O(n) + O(k) + O(k) + O(k), which is O(n) + 3O(k) 
-since, constants can be ignored, we have O(n) + O(k) 
+Therefore the total time complexity for huffman_encoding() is O(nlogk) + O(k) + O(k) + O(k), which is O(nlogk) + 3O(k) 
+since, constants can be ignored, we have O(nlogk) + O(k), hence approximated as O(nlogk)
 
 For huffman_decoding(): traversal for the number of bits, lets consider that to be 'b', then it's time complexity is O(b) 
 
 Total Time Complexity for the execution of the program is: O(n) + O(k) + O(b) 
 Where n,k,b are *dependent* on length of the string, number of items in the queue and the number of bits generated.
+
+Space Complexity:  
+Space complexity is O(k) for the tree and O(n) for the decoded text. 
+Where 'k' is the number of nodes and 'n' is the number of letters in the string
