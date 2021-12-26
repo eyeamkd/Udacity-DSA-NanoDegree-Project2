@@ -20,3 +20,12 @@ add() function takes O(1) to calculate time, create a Block object and then addi
 Hence, add() function's time complexity is O(1) 
 
 print() however goes through all the blocks present in the blockchain, hence in order to print all the blocks, it shall cost us a complexity of O(B), where B is the number of blocks present "on-chain"
+
+## Space Complexity 
+
+BlockChain():  
+O(n) space time complexity is the order of growth of space required to create a block chain.
+Where 'n' is the number of blocks present in the block chain
+
+add(): 
+O(1) is the space complexity required to add blocks on to the BlockChain
