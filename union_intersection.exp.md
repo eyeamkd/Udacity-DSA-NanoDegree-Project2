@@ -26,4 +26,11 @@ The union function has while loop that executes for all the elements present in 
 Therefore this would account for the time complexity of 
 O(G), where G is max of L1 and L2 
 Second for loop executes for the number of elements present in the union set, which lets say is K, hence the time complexity is O(K)
-Therefore the total time complexity of this union function is O(G) + O(K)
+Therefore the total time complexity of this union function is O(G) + O(K) 
+
+
+Space Complexity: 
+
+Union: O(n) where 'n' is the number of elements formed after unionization of two lists 
+
+Intersection: O(k) where 'k' is the number of common elements present.
